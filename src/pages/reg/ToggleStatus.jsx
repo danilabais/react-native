@@ -1,17 +1,16 @@
 import React  from "react";
-import { StyleSheet, Text, View,SafeAreaView, Pressable } from 'react-native';
+import { StyleSheet, Text, View, Pressable } from 'react-native';
 
 
 export default function ToggleStatus() {
     return (
-        <SafeAreaView >
+       
           <View style={styles.wrapperToggle}>
             <Text style={styles.textToggle}>У вас уже есть аккаунт? </Text>
             <Pressable>
                 <Text style={[styles.textToggle, styles.blueText]}>Войдите</Text>
             </Pressable>
           </View>
-        </SafeAreaView>
     );
   }
   

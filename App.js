@@ -1,38 +1,37 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, KeyboardAvoidingView } from 'react-native';
-
+import { StyleSheet, Text, View, SafeAreaView } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import HeaderReg from 'src/common/HeaderReg';
 import BodyReg from 'src/pages/reg/BodyReg';
 import ToggleStatus from 'src/pages/reg/ToggleStatus';
 
+
 export default function App() {
   return (
-    <KeyboardAvoidingView 
-        behavior={Platform.OS === "ios" ? "padding" : "height"}
-        style={styles.avoidView}
-      >
-    <View style={styles.container}>
-      <HeaderReg/>
-      
-      <BodyReg />
-      <ToggleStatus/>
+    
+    <KeyboardAwareScrollView style={styles.bg}>
+      <SafeAreaView style={styles.container}>
+        <HeaderReg/>
+        
+        <BodyReg />
+        <ToggleStatus/>
+      </SafeAreaView>
 
-      <StatusBar />
-    </View>
-    </KeyboardAvoidingView>
+    </KeyboardAwareScrollView>
+
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#070707',
     flexDirection: 'column',
     paddingHorizontal: 20,
-    flex: 1,
     justifyContent: 'space-between',
+    minHeight: "100%",
+    height: "100%",
   },
-  avoidView: {
-    flex: 1
+  bg: {
+    backgroundColor: '#070707',
   }
 });

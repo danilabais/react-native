@@ -1,5 +1,5 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View, TextInput, KeyboardAvoidingView, SafeAreaView } from 'react-native';
+import { Pressable, StyleSheet, Text, View, TextInput, SafeAreaView } from 'react-native';
 import { openURL } from 'expo-linking';
 
 const openSupport =()=>{
@@ -20,7 +20,6 @@ export default function BodyReg() {
                     <Text style={styles.supportBtn }>Поддержка</Text>
                 </Pressable>
             </View>
-            <KeyboardAvoidingView behavior={Platform.OS === "ios" ? "padding" : "height"} style={styles.wrapperInputs}>
                 <TextInput 
                     style={styles.textInput}
                     placeholder="Полное имя"
@@ -39,8 +38,6 @@ export default function BodyReg() {
                     keyboardType="default"
                     placeholderTextColor="#A7A7A7"
                 />
-            </KeyboardAvoidingView>
-
             <Pressable onPress={registration}>
                 <View style={styles.mainBtn}>
                     <Text style={styles.mainBtnText}>Создать аккаунт</Text>

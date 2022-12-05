@@ -10,14 +10,12 @@ const goBack =()=> {
 
 export default function HeaderReg() {
     return (
-        <SafeAreaView >
             <View style={styles.wrapper}> 
             <Pressable onPress={goBack} style={styles.arrow}>
                 <ArrowLeft  width={6} height={12} />
             </Pressable>
                 <LogoIcon  width={108} height={33}/>
             </View>
-        </SafeAreaView>
     );
   }
   
