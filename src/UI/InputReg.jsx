@@ -1,45 +1,61 @@
-import React, {useRef, useState} from "react";
-import {TextInput, StyleSheet, View, Pressable} from 'react-native'
+import React, { useState } from "react";
+import { TextInput, Text, StyleSheet, View, Pressable, Keyboard } from 'react-native'
+import { useFonts } from 'expo-font';
 
 import EyeOpen from 'src/assets/img/eyeOpen.svg'
 import EyeClose from 'src/assets/img/eyeClose.svg'
 
-export default InputReg =({placeholder,type})=>{
-    const [focused,setFocused] = useState(false)
-    const [openEye,setOpenEye]= useState(()=>type==="password"?false:null)
+export default InputReg = ({ placeholder, type, errorMsg }) => {
+    const [focused, setFocused] = useState(false)
+    const [openEye, setOpenEye] = useState(() => type === "password" ? false : null)
 
-    const InputWrapper = React.createRef()
-    const onBlur=(e)=>{
-        setFocused(false)
 
-        
+
+
+    const [fontsLoaded] = useFonts({
+        'Satoshi-Bold': require('src/assets/fonts/Satoshi/Satoshi-Bold.otf'),
+    });
+    if (!fontsLoaded) {
+        return null;
     }
-    return (
-        <View style={styles.wrapperInput} ref={InputWrapper}>
-            <TextInput
-             
-            onFocus={()=>setFocused(true)}
-            onBlur={onBlur}
-            style={[styles.textInput, focused?styles.textInputFocused:null]}
-            placeholder={placeholder}
-            placeholderTextColor="#A7A7A7"
-            secureTextEntry={openEye===false}
 
-            maxLength={50}
-            keyboardType={type==='email'?'email-address':'default'}
-            autoCapitalize={type==='name'?'words':'none'}
-            autoComplete={type}
+    return (
+        <View style={styles.wrapperInput}>
+            <TextInput
+                onFocus={() => setFocused(true)}
+                style={[styles.textInput, focused && styles.textInputFocused, errorMsg && styles.textInputError]}
+                placeholder={placeholder}
+                placeholderTextColor="#A7A7A7"
+                secureTextEntry={openEye === false}
+                onBlur={() => setFocused(false)}
+                maxLength={50}
+                autoCorrect={false}
+                onSubmitEditing={() => Keyboard.dismiss()}
+
+                textContentType="oneTimeCode"
+                keyboardType={type === 'email' ? 'email-address' : 'default'}
+                autoCapitalize={type === 'name' ? 'words' : 'none'}
             />
-            {openEye===null?'':
-            <Pressable  style={styles.eye} onPress={()=>setOpenEye(!openEye)}>
-                {
-                openEye===true?
-                <EyeOpen width={25} heigth={25}/>:
-                <EyeClose width={25} heigth={25}/>
-                }
-            </Pressable>
+            {
+                errorMsg
+                    ?
+                    <Text style={styles.errorMsg}>
+                        {errorMsg}
+                    </Text>
+                    :
+                    null
             }
-            
+
+            {openEye === null ? '' :
+                <Pressable style={styles.eye} onPress={() => setOpenEye(!openEye)}>
+                    {
+                        openEye === true ?
+                            <EyeOpen width={25} heigth={25} /> :
+                            <EyeClose width={25} heigth={25} />
+                    }
+                </Pressable>
+            }
+
         </View>
     )
 }
@@ -48,21 +64,31 @@ export default InputReg =({placeholder,type})=>{
 const styles = StyleSheet.create({
     textInput: {
         paddingHorizontal: 26,
-        paddingVertical: 28, 
-        color:"#fff",
+        paddingVertical: 24,
+        color: "#fff",
         borderRadius: 30,
-        borderColor:"#333",
+        borderColor: "#333",
         borderWidth: 1,
+        fontFamily: 'Satoshi-Bold',
         fontSize: 16,
-        
+
+    },
+    errorMsg: {
+        color: '#a11521',
+        marginLeft: 20,
+        marginTop: 4,
+        marginBottom: -2,
     },
     wrapperInput: {
         position: 'relative',
-        marginBottom: 16,
+        marginBottom: 14,
         justifyContent: 'center'
     },
     textInputFocused: {
-        borderColor:"#fff",
+        borderColor: "#555",
+    },
+    textInputError: {
+        borderColor: "#a11521",
     },
     eye: {
         position: 'absolute',
