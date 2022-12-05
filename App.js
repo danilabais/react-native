@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet,  Text, View, SafeAreaView, Alert } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import HeaderReg from 'src/common/HeaderReg';
@@ -10,16 +10,23 @@ import ToggleStatus from 'src/pages/reg/ToggleStatus';
 
 
 export default function App() {
+
+  const [isScrolable, setIsScrolable] =  useState(false)
   return (
     
-    <KeyboardAwareScrollView  style={styles.bg} extraScrollHeight={100}>
+    <KeyboardAwareScrollView 
+    keyboardShouldPersistTaps={'handled'}
+      onKeyboardWillHide={()=>setIsScrolable(false)} 
+      onKeyboardWillShow={()=>setIsScrolable(true)} 
+      scrollEnabled={isScrolable} 
+      style={styles.bg} 
+      extraScrollHeight={100}>
       <SafeAreaView style={styles.container}>
         <HeaderReg/>
-        
         <BodyReg />
         <ToggleStatus/>
       </SafeAreaView>
-
+      <StatusBar style="light"/>
     </KeyboardAwareScrollView>
 
   )

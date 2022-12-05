@@ -1,6 +1,9 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View, TextInput, SafeAreaView } from 'react-native';
+import { Pressable, StyleSheet, Text, View, TextInput } from 'react-native';
 import { openURL } from 'expo-linking';
+
+import InputReg from "src/UI/InputReg";
+
 
 const openSupport =()=>{
     openURL('https://expo.dev');
@@ -20,24 +23,10 @@ export default function BodyReg() {
                     <Text style={styles.supportBtn }>Поддержка</Text>
                 </Pressable>
             </View>
-                <TextInput 
-                    style={styles.textInput}
-                    placeholder="Полное имя"
-                    keyboardType="default"
-                    placeholderTextColor="#A7A7A7"
-                />
-                <TextInput 
-                    style={styles.textInput}
-                    placeholder="Введите почту"
-                    keyboardType="default"
-                    placeholderTextColor="#A7A7A7"
-                />
-                <TextInput 
-                    style={styles.textInput}
-                    placeholder="Пароль"
-                    keyboardType="default"
-                    placeholderTextColor="#A7A7A7"
-                />
+                <InputReg placeholder="Полное имя" type="name" />
+                <InputReg placeholder="Почта" type="email" />
+                <InputReg placeholder="Пароль" type="password" />
+                
             <Pressable onPress={registration}>
                 <View style={styles.mainBtn}>
                     <Text style={styles.mainBtnText}>Создать аккаунт</Text>
@@ -51,7 +40,6 @@ export default function BodyReg() {
 const styles = StyleSheet.create({
     wrapper: {
         alignItems: 'stretch',
-        
     },
     title: {
         color: '#fff',
@@ -92,6 +80,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         paddingVertical: 24,
         alignItems: 'center',
+        marginTop: 33,
     },
     mainBtnText: {
         color: "#fff",
