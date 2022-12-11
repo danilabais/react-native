@@ -6,20 +6,23 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import HeaderReg from 'src/pages/reg/сomponents/HeaderReg';
 import BodyReg from 'src/pages/reg/сomponents/BodyReg';
 import ToggleStatus from 'src/pages/reg/сomponents/ToggleStatus';
+import { COLORS } from 'src/common/CONSTANTS'
+
+import RegistrationApi from './api'
 
 
 
 export default function App() {
+   RegistrationApi.registration({email: 'sdfsdf@fdsf.ru', password: '23423'})
 
   const [isScrolable, setIsScrolable] =  useState(false)
   return (
-    
     <KeyboardAwareScrollView 
     keyboardShouldPersistTaps={'handled'}
       onKeyboardWillHide={()=>setIsScrolable(false)} 
       onKeyboardWillShow={()=>setIsScrolable(true)} 
-      scrollEnabled={isScrolable} 
-      style={styles.bg} 
+      scrollEnabled={isScrolable}
+      style={styles.bg}
       extraScrollHeight={100}>
       <SafeAreaView style={styles.container}>
         <HeaderReg/>
@@ -41,7 +44,7 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   bg: {
-    backgroundColor: '#1C1B1B',
+    backgroundColor: COLORS.background,
     maxHeight: "100%",
   }
 });

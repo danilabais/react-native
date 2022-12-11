@@ -1,4 +1,6 @@
 import { StyleSheet } from 'react-native'
+import {COLORS, SIZES} from 'src/common/CONSTANTS'
+
 
 export const toggleStatusStyles = StyleSheet.create({
     wrapperToggle: {
@@ -8,13 +10,13 @@ export const toggleStatusStyles = StyleSheet.create({
         marginBottom: 20
     },
     textToggle: {
-        color: "#DBDBDB",
-        fontSize: 14,
+        color: COLORS.light,
+        fontSize: SIZES.h3,
         fontFamily: 'Satoshi-Bold',
 
     },
     blueText: {
-        color: "#288CE9",
+        color: COLORS.blue,
     }
 
 })
@@ -32,9 +34,9 @@ export const HeaderStyles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         borderRadius: 50,
-        borderColor: "#333",
+        borderColor: COLORS.silver,
         borderWidth: 1,
-        backgroundColor: '#333',
+        backgroundColor: COLORS.silver,
         width: 32,
         height: 32,
 
@@ -46,20 +48,20 @@ export const BodyRegStyles = StyleSheet.create({
         alignItems: 'stretch',
     },
     title: {
-        color: '#fff',
-        fontSize: 30,
+        color: COLORS.white,
+        fontSize: SIZES.h1,
         marginBottom: 15,
         textAlign: "center",
         fontFamily: "Satoshi-Bold"
     },
     support: {
-        color: '#fff',
-        fontSize: 12,
+        color: COLORS.white,
+        fontSize: SIZES.h4,
         fontFamily: 'Satoshi-Regular'
     },
     supportBtn: {
-        color: '#38B432',
-        fontSize: 12,
+        color: COLORS.green2,
+        fontSize: SIZES.h4,
         fontFamily: 'Satoshi-Regular'
     },
     wrapperSupport: {
@@ -70,7 +72,7 @@ export const BodyRegStyles = StyleSheet.create({
         marginBottom: 32,
     },
     mainBtn: {
-        backgroundColor: '#42C83C',
+        backgroundColor: COLORS.green2,
         borderRadius: 30,
         paddingVertical: 24,
         alignItems: 'center',
@@ -78,8 +80,8 @@ export const BodyRegStyles = StyleSheet.create({
 
     },
     mainBtnText: {
-        color: "#fff",
-        fontSize: 24,
+        color: COLORS.white,
+        fontSize: SIZES.btn,
         fontFamily: "Satoshi-Bold",
     }
 })

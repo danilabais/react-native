@@ -4,8 +4,9 @@ import { useFonts } from 'expo-font';
 
 import EyeOpen from 'src/assets/img/eyeOpen.svg'
 import EyeClose from 'src/assets/img/eyeClose.svg'
+import { COLORS, SIZES } from "src/common/CONSTANTS";
 
-export default InputReg = ({ placeholder, type, errorMsg }) => {
+export default InputReg = ({ placeholder, type, errorMsg, value, onChangeText, dirty }) => {
     const [focused, setFocused] = useState(false)
     const [openEye, setOpenEye] = useState(() => type === "password" ? false : null)
 
@@ -21,9 +22,12 @@ export default InputReg = ({ placeholder, type, errorMsg }) => {
 
     return (
         <View style={styles.wrapperInput}>
+            <View style={styles.position}>
             <TextInput
+                value={value}
+                onChangeText={onChangeText}
                 onFocus={() => setFocused(true)}
-                style={[styles.textInput, focused && styles.textInputFocused, errorMsg && styles.textInputError]}
+                style={[styles.textInput, focused && styles.textInputFocused, dirty && styles.textInputError]}
                 placeholder={placeholder}
                 placeholderTextColor="#A7A7A7"
                 secureTextEntry={openEye === false}
@@ -31,23 +35,14 @@ export default InputReg = ({ placeholder, type, errorMsg }) => {
                 maxLength={50}
                 autoCorrect={false}
                 onSubmitEditing={() => Keyboard.dismiss()}
-
                 textContentType="oneTimeCode"
                 keyboardType={type === 'email' ? 'email-address' : 'default'}
                 autoCapitalize={type === 'name' ? 'words' : 'none'}
             />
-            {
-                errorMsg
-                    ?
-                    <Text style={styles.errorMsg}>
-                        {errorMsg}
-                    </Text>
-                    :
-                    null
-            }
+           
 
             {openEye === null ? '' :
-                <Pressable style={styles.eye} onPress={() => setOpenEye(!openEye)}>
+                <Pressable style={styles.eye} onPress={() => setOpenEye(prev=>!prev)}>
                     {
                         openEye === true ?
                             <EyeOpen width={25} heigth={25} /> :
@@ -55,7 +50,16 @@ export default InputReg = ({ placeholder, type, errorMsg }) => {
                     }
                 </Pressable>
             }
-
+            </View>
+            {
+            errorMsg
+                ?
+                <Text style={styles.errorMsg}>
+                    {errorMsg}
+                </Text>
+                :
+                null
+        }
         </View>
     )
 }
@@ -65,34 +69,39 @@ const styles = StyleSheet.create({
     textInput: {
         paddingHorizontal: 26,
         paddingVertical: 24,
-        color: "#fff",
+        color: COLORS.white,
         borderRadius: 30,
-        borderColor: "#333",
+        borderColor: COLORS.silver,
         borderWidth: 1,
         fontFamily: 'Satoshi-Bold',
-        fontSize: 16,
+        fontSize: SIZES.h2,
 
     },
     errorMsg: {
-        color: '#a11521',
+        color: COLORS.error,
         marginLeft: 20,
         marginTop: 4,
         marginBottom: -2,
     },
     wrapperInput: {
-        position: 'relative',
+        
         marginBottom: 14,
         justifyContent: 'center'
     },
     textInputFocused: {
-        borderColor: "#555",
+        borderColor: COLORS.silver2,
     },
     textInputError: {
-        borderColor: "#a11521",
+        borderColor: COLORS.error,
     },
     eye: {
         position: 'absolute',
-        right: 20
+        right: 20,
+
+    },
+    position: {
+        position: 'relative',
+        justifyContent: 'center'
     }
 })
 
