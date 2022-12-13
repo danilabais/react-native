@@ -47,6 +47,12 @@ export const BodyRegStyles = StyleSheet.create({
     wrapper: {
         alignItems: 'stretch',
     },
+    recovery: {
+        color: COLORS.light,
+        fontFamily: "Satoshi-Bold",
+        marginTop: 15,
+        textAlign: 'center'
+    },
     title: {
         color: COLORS.white,
         fontSize: SIZES.h1,
@@ -68,7 +74,6 @@ export const BodyRegStyles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'end',
         justifyContent: 'center',
-
         marginBottom: 32,
     },
     mainBtn: {

@@ -1,10 +1,10 @@
 import { api } from 'src/common/api'
 
-class RegistrationApi {
-  async registration(user) {
+class AuthApi {
+  async auth(user) {
     try {
       const registrationResponse = await api.post
-        ('https://www.1121177-cx06692.tw1.ru/api/user', user)
+        ('/user/login', user)
       return {
         data: registrationResponse,
         error: { isLoading: false, message: '' },
@@ -13,6 +13,7 @@ class RegistrationApi {
       return { data: null, error: { isLoading: false, data: error.response.data } }
     }
   }
+
 }
 
-export default new RegistrationApi
+export default new AuthApi

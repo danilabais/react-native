@@ -2,17 +2,18 @@ import { makeAutoObservable } from "mobx"
 import RegistrationApi from '../api'
 import { REGEX } from "src/common/CONSTANTS"
 
-class RegistrationStore {
-    isValidClient = false
-    
-    emailError = ''
-    passwordError = ''
-    repeatPasswordError = ''
+import { IChecked } from '../models/RegistrationStoreType'
 
-    emailDirty = false
-    passwordDirty = false
-    repeatPasswordDirty = false
- 
+class RegistrationStore {
+    isValidClient: boolean = false
+
+    emailError: string = ''
+    passwordError: string = ''
+    repeatPasswordError: string = ''
+
+    emailDirty: boolean = false
+    passwordDirty: boolean = false
+    repeatPasswordDirty: boolean = false
 
     constructor() {
         makeAutoObservable(this)
@@ -22,7 +23,7 @@ class RegistrationStore {
         this.emailError = ''
         this.passwordError = ''
         this.repeatPasswordError = ''
-    
+
         this.emailDirty = false
         this.passwordDirty = false
         this.repeatPasswordDirty = false
@@ -38,10 +39,10 @@ class RegistrationStore {
         this.repeatPasswordError = ''
     }
 
-    async postRegistration(mail,password) {
-        const response = await RegistrationApi.registration({email:mail,password})
-        const mailError = response?.error?.data?.message
-        if (typeof mailError === 'string') {
+    async postRegistration(mail: string, password: string) {
+        const response = await RegistrationApi.registration({ email: mail, password })
+        const mailError = response?.error?.data?.email
+        if (mailError) {
             //несовсем удачно, но надо было под бек подстроиться
             this.renderServerErrors(mailError)
             return
@@ -54,28 +55,28 @@ class RegistrationStore {
         alert('Регистрация завершена')
     }
 
-    checkOnClient(mail,password,repeatPassword) {
+    checkOnClient(mail: string, password: string, repeatPassword: string) {
         const errors = {
             email: this.emailCheck(mail),
             password: this.passwordCheck(password),
-            repeatPassword: this.repeatPasswordCheck(password,repeatPassword)
+            repeatPassword: this.repeatPasswordCheck(password, repeatPassword)
         }
         return {
             isValideClient: errors.email.isValide && errors.password.isValide && errors.repeatPassword.isValide,
-            errors 
+            errors
         }
     }
 
-    async registration({mail,password,repeatPassword}) {
-        const checkClient = this.checkOnClient(mail,password,repeatPassword)
+    async registration({ mail, password, repeatPassword }) {
+        const checkClient = this.checkOnClient(mail, password, repeatPassword)
 
         this.reset()
         if (!checkClient.isValideClient) {
             this.renderClientErrors(checkClient.errors)
-             return
-         }
+            return
+        }
         if (checkClient.isValideClient) {
-            await this.postRegistration(mail,password)
+            await this.postRegistration(mail, password)
         }
 
     }
@@ -89,15 +90,14 @@ class RegistrationStore {
         this.passwordDirty = !errors.password.isValide
         this.repeatPasswordDirty = !errors.repeatPassword.isValide
     }
-    renderServerErrors(email) {
+    renderServerErrors(email: string) {
         if (email) {
             this.emailError = email
             this.emailDirty = !!email
         }
     }
-
-    emailCheck(mail) {
-        if (mail==='') {
+    emailCheck(mail: string): IChecked {
+        if (mail === '') {
             return {
                 isValide: false,
                 message: 'Обязательно к заполнению',
@@ -114,15 +114,14 @@ class RegistrationStore {
             message: ''
         }
     }
-
-    passwordCheck(password) {
-        if (password==='') {
+    passwordCheck(password: string): IChecked {
+        if (password === '') {
             return {
                 isValide: false,
                 message: 'Обязательно к заполнению',
             }
         }
-        if(password.length<8) {
+        if (password.length < 8) {
             return {
                 isValide: false,
                 message: 'Пароль должен быть больше 8 символов',
@@ -132,10 +131,10 @@ class RegistrationStore {
             isValide: true,
             message: ''
         }
-        
+
     }
-    repeatPasswordCheck(password,repeatPassword) {
-        if (repeatPassword==='') {
+    repeatPasswordCheck(password: string, repeatPassword: string): IChecked {
+        if (repeatPassword === '') {
             return {
                 isValide: false,
                 message: 'Обязательно к заполнению'

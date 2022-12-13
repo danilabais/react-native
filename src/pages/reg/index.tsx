@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet,  Text, View, SafeAreaView, Alert } from 'react-native';
+import { StyleSheet,  SafeAreaView } from 'react-native';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view'
 
 import HeaderReg from 'src/pages/reg/сomponents/HeaderReg';
@@ -8,28 +8,23 @@ import BodyReg from 'src/pages/reg/сomponents/BodyReg';
 import ToggleStatus from 'src/pages/reg/сomponents/ToggleStatus';
 import { COLORS } from 'src/common/CONSTANTS'
 
-import RegistrationApi from './api'
 
-
-
-export default function App() {
-   RegistrationApi.registration({email: 'sdfsdf@fdsf.ru', password: '23423'})
-
-  const [isScrolable, setIsScrolable] =  useState(false)
+const App = ({ navigation }) => {
+  const [isScrolable, setIsScrolable] = useState(false)
   return (
-    <KeyboardAwareScrollView 
-    keyboardShouldPersistTaps={'handled'}
-      onKeyboardWillHide={()=>setIsScrolable(false)} 
-      onKeyboardWillShow={()=>setIsScrolable(true)} 
+    <KeyboardAwareScrollView
+      keyboardShouldPersistTaps={'handled'}
+      onKeyboardWillHide={() => setIsScrolable(false)}
+      onKeyboardWillShow={() => setIsScrolable(true)}
       scrollEnabled={isScrolable}
       style={styles.bg}
       extraScrollHeight={100}>
       <SafeAreaView style={styles.container}>
-        <HeaderReg/>
+        <HeaderReg navigation={navigation} />
         <BodyReg />
-        <ToggleStatus/>
+        <ToggleStatus navigation={navigation} />
       </SafeAreaView>
-      <StatusBar style="light"/>
+      <StatusBar style="light" />
     </KeyboardAwareScrollView>
 
   )
@@ -48,3 +43,7 @@ const styles = StyleSheet.create({
     maxHeight: "100%",
   }
 });
+
+
+
+export default App

@@ -4,5 +4,8 @@
       "paths": {
         "src": ["./src/"],
       }
-    }
+    },
+    "extends": "expo/tsconfig.base",
+    "strict": true,
+    
   }

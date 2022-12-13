@@ -8,6 +8,13 @@ const HEADERS = {
 
 const TIMEOUT = 10 * 1000
 
+const defaultOptions = {
+    baseURL: BASE_URL,
+    HEADERS,
+    TIMEOUT,
+}
+
+export const api = axios.create(defaultOptions)
 // class Axios {
 //   constructor() {
 //     this.client = this.initClient()
@@ -78,8 +85,3 @@ const TIMEOUT = 10 * 1000
 //   }
 // }
 
-export default axios.create({
-    baseURL: BASE_URL,
-    headers: HEADERS,
-    timeout: TIMEOUT,
-  })
